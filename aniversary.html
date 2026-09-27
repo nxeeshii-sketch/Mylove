@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary My Love! 💕</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Poppins', cursive, sans-serif;
+      background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Animated Glowing Ambient Orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.6;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .orb-1 { width: 300px; height: 300px; background: #ff758c; top: -10%; left: -10%; }
+    .orb-2 { width: 350px; height: 350px; background: #ff8eae; bottom: -10%; right: -10%; animation-delay: -4s; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 40px) scale(1.1); }
+    }
+
+    /* Canvas for Sparkle and Heart Particles */
+    #particleCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* 3D Envelope Wrapper */
+    .envelope-wrapper {
+      position: relative;
+      cursor: pointer;
+      z-index: 10;
+      perspective: 1000px;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-wrapper:hover {
+      transform: scale(1.08) rotate(2deg);
+    }
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(214, 51, 132, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-top: 110px solid #ff4b6e;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 3;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+
+    .envelope-seal {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #ffffff, #ffe3e8);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      z-index: 4;
+      box-shadow: 0 6px 15px rgba(214, 51, 132, 0.4);
+      animation: pulseGlow 1.5s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(214, 51, 132, 0.4); }
+      50% { transform: scale(1.15); box-shadow: 0 10px 25px rgba(255, 71, 87, 0.7); }
+    }
+
+    .tap-text {
+      position: absolute;
+      bottom: -45px;
+      width: 100%;
+      text-align: center;
+      color: #d63384;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+      animation: bounceText 2s infinite;
+    }
+
+    @keyframes bounceText {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+
+    /* Interactive Proposal Card */
+    .card {
+      display: none;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      border-radius: 30px;
+      box-shadow: 0 20px 50px rgba(214, 51, 132, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+      z-index: 10;
+      border: 4px solid #ffffff;
+      animation: cardPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes cardPop {
+      0% { opacity: 0; transform: scale(0.3) rotate(-5deg) translateY(100px); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg) translateY(0); }
+    }
+
+    .gif-container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 25px;
+      object-fit: cover;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+      color: #d63384;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 1.65rem;
+      margin-bottom: 25px;
+      line-height: 1.35;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      min-height: 60px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #ff4757, #ff6b81);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 71, 87, 0.5);
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.12);
+      box-shadow: 0 10px 28px rgba(255, 71, 87, 0.7);
+    }
+
+    .btn-no {
+      background-color: #a4b0be;
+      color: white;
+      position: absolute;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.15s ease;
+    }
+
+    /* Success Message Content */
+    .success-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-content h2 {
+      color: #ff4757;
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .success-content p {
+      color: #444;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" src="/0927/0927.MP3" preload="auto" loop></audio>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope" id="envelope">
+      <div class="envelope-seal">💌</div>
+    </div>
+    <div class="tap-text">Tap to open the anniversary letter ✨</div>
+  </div>
+
+  <div class="card" id="mainCard">
+    <div class="badge">Happy Anniversary! ✨</div>
+    <div class="gif-container">
+      <img id="cardImg" src="/cat.jpg" alt="Cute Bear">
+    </div>
+    
+    <div id="proposalText">
+      <h1>Another month down, forever to go! <br>Will you stay by my side forever? 💖</h1>
+      <div class="buttons">
+        <button class="btn btn-yes" id="yesBtn">Yes, Forever! 🥰</button>
+        <button class="btn btn-no" id="noBtn">No way 😜</button>
+      </div>
+    </div>
+
+    <div class="success-content" id="successContent">
+      <h2>I knew you'd say yes! 🎉💖</h2>
+      <p>Thank you for another amazing month together. Here's to making countless more beautiful memories side-by-side! I love you! 😘✨</p>
+    </div>
+  </div>
+
+  <script>
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const envelope = document.getElementById('envelope');
+    const mainCard = document.getElementById('mainCard');
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const proposalText = document.getElementById('proposalText');
+    const successContent = document.getElementById('successContent');
+    const cardImg = document.getElementById('cardImg');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Envelope Opening Effect
+    envelopeWrapper.addEventListener('click', () => {
+      envelope.style.transform = 'rotateY(180deg) scale(0.8)';
+      envelopeWrapper.style.opacity = '0';
+      envelopeWrapper.style.transition = 'all 0.6s ease';
+      
+      setTimeout(() => {
+        envelopeWrapper.style.display = 'none';
+        mainCard.style.display = 'block';
+        burstParticles(window.innerWidth / 2, window.innerHeight / 2, 40);
+      }, 500);
+    });
+
+    // Runaway "No" Button Logic
+    function moveButton() {
+      const padding = 30;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+
+      // Sparkle effect on runaway
+      const rect = noBtn.getBoundingClientRect();
+      burstParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
+    }
+
+    noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    // Action on YES Click
+    yesBtn.addEventListener('click', () => {
+      proposalText.style.display = 'none';
+      successContent.style.display = 'block';
+      cardImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZudGZwazR2eGdzYTFmdDY4MHliMnFscndnYzRpbmx3ZG94bHRuOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif";
+      
+      // Play romantic music on click
+      bgMusic.play().catch(error => {
+        console.log("Audio play blocked by browser policy:", error);
+      });
+
+      burstParticles(window.innerWidth / 2, window.innerHeight / 2, 120);
+    });
+
+    // Interactive Particle & Canvas Setup
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor(x, y, isBurst = false) {
+        this.x = x || Math.random() * canvas.width;
+        this.y = y || (isBurst ? y : canvas.height + 20);
+        this.size = Math.random() * 16 + 8;
+        this.speedX = isBurst ? (Math.random() - 0.5) * 12 : (Math.random() - 0.5) * 1.5;
+        this.speedY = isBurst ? (Math.random() - 0.5) * 12 : -Math.random() * 2 - 1;
+        this.symbols = ['🌸', '💖', '✨', '🌹', '💕', '🎉'];
+        this.symbol = this.symbols[Math.floor(Math.random() * this.symbols.length)];
+        this.opacity = 1;
+        this.isBurst = isBurst;
+        this.rotation = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.isBurst) {
+          this.opacity -= 0.015;
+          this.speedY += 0.15; // Gravity
+        } else {
+          if (this.y < -20) this.y = canvas.height + 20;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.opacity);
+        ctx.font = `${this.size}px serif`;
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillText(this.symbol, 0, 0);
+        ctx.restore();
+      }
+    }
+
+    // Initialize floating ambient particles
+    for (let i = 0; i < 25; i++) {
+      particles.push(new Particle());
+    }
+
+    function burstParticles(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y, true));
+      }
+    }
+
+    // Mouse Trail Effect
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.6) {
+        const p = new Particle(e.clientX, e.clientY, true);
+        p.speedX = (Math.random() - 0.5) * 2;
+        p.speedY = (Math.random() - 0.5) * 2;
+        p.opacity = 0.8;
+        particles.push(p);
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if (p.opacity <= 0) {
+          particles.splice(index, 1);
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
